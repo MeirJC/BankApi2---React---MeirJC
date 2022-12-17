@@ -1,0 +1,38 @@
+.card-container {
+  width: 98vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 0.65rem;
+  margin-bottom: 0.65rem;
+}
+
+.card {
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.15rem 0.1rem rgba(255, 255, 255, 0.448);
+  padding: 0.5rem;
+  background-color: #222;
+  color: #fff;
+}
+
+.card p {
+  font-size: 1.4rem;
+}
+
+.btn {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  letter-spacing: 0.1rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin: 0.4rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #666;
+  color: #eee;
+}
