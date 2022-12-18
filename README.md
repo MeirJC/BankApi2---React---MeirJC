@@ -1,71 +1,133 @@
-# Getting Started with Create React App
+# BankApi2 - MeirJC
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+## _**Website is still under development**_
 
-In the project directory, you can run:
+> ## Description
 
-### `npm start`
+This is the fronend part of bank API project built using node.js, express and mongoDB.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The Github repository of the back-end part for this project is [here](https://github.com/MeirJC/BankApi2-MeirJC).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Live deployment ( _via Netlify_ ) is available [here](https://bank-project-meirjc.netlify.app/)
 
-### `npm test`
+live deployment of the API is available at [https://bankapi-2-wa.onrender.com](https://bankapi-2-wa.onrender.com). _**(which is also the base adress for all API calls)**_
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+> ## How to use the API by itself:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### This is how every account object is stored in the database:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    {
+        "_id": "639e27607310a399a4feaea0", // uniqu id of the account - auto generated
+        "firstName": "Ben", // first name  - required for every account
+        "lastName": "Gurion", // last name - required for every account
+        "ownerID": "11111", // ownerID of the account - required for every account -
+        Length of ownerID is 5 digits - just the way i defined it.
+        "email": "ben@gur.yon", // email of the account owner - optional
+        "balance": 100, // balance of the account - default (if not declared) = 0
+        "credit": 500000, // credit of the account - default (if not declared) = 0
+        "isActive": true, // is the account active  - optional, default is true
+        "createdAt": "2022-12-17T20:32:32.368Z", // creation date of the account - auto genreted
+        "__v": 0
+    }
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## **Get all accounts**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+GET https://bankapi-2-wa.onrender.com/BankApi
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## **Get specific account**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+GET https://bankapi-2-wa.onrender.com/BankApi/getaccount
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Request body:
 
-## Learn More
+{"id": "639de29ec9a0404b03c76f39"}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## **Get all accounts by ownerID**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+GET https://bankapi-2-wa.onrender.com/BankApi/getallbyowner
+Request body:
 
-### Code Splitting
+{"ownerID": "12345"}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## **Add an account**
 
-### Analyzing the Bundle Size
+POST https://bankapi-2-wa.onrender.com/BankApi/add
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Request body:
 
-### Making a Progressive Web App
+{
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### --- Required ---
 
-### Advanced Configuration
+"firstName": "Avi", "lastName": "Ron", "ownerID": "12321",
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### --- Opional ---
 
-### Deployment
+"email": "ab@bd.ef", "balance": "0", (default = 0), "credit": "5000", (default = 0),"isActive": true (default = true)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+// ID is auto generated while creating account
 
-### `npm run build` fails to minify
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# BankApi2---React---MeirJC
+## **Update account by id**
+
+POST https://bankapi-2-wa.onrender.com/BankApi/update
+
+Request body:
+
+{
+"id": "639e04fdf2bfb269f5b75484",
+"isActive": "false" // Or any other fields you wish to update
+}
+
+## **Delete an account**
+
+DELETE https://bankapi-2-wa.onrender.com/BankApi/delete
+
+Request body:
+
+{
+"id": "639e04fdf2bfb269f5b75484"
+}
+
+## **Deposit to account**
+
+PATCH https://bankapi-2-wa.onrender.com/BankApi/deposit
+
+Request body:
+
+{
+"id": "639c8e8058c499a29216d96a",
+"amount": "1500" // amount of money to deposit
+}
+
+## **Withdraw from account**
+
+PATCH https://bankapi-2-wa.onrender.com/BankApi/withdraw
+
+Request body:
+
+{
+"id": "639c8e8058c499a29216d96a",
+"amount": "1500" // amount of money to withdraw
+}
+
+## **Transfer between two accounts**
+
+POST https://bankapi-2-wa.onrender.com/BankApi/transfer
+
+Request body:
+
+{
+"receiverId": "639c8e8058c499a29216d96a",
+"senderId": "639de273c9a0404b03c76f37",
+"amount": "150"
+}
+
+---
